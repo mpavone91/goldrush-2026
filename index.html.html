@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gold Rush · SDR Challenge Junio 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap');
+:root {
+  --gold:#C9A84C; --gold-light:#F0D080; --gold-dim:#8a6e2a;
+  --navy:#1a1f35; --navy-mid:#252c47; --navy-light:#2f3859;
+  --cream:#F5F0E8; --cream-dark:#EDE6D6; --white:#ffffff;
+  --text:#1a1a2e; --muted:#6b7280; --border:rgba(201,168,76,0.2);
+  --green:#22c55e; --green-soft:rgba(34,197,94,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;}
+
+/* HERO */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:60px 32px 52px;text-align:center;}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,168,76,0.18) 0%,transparent 70%);pointer-events:none;}
+.hero-eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:var(--white);line-height:1.05;margin-bottom:16px;}
+.hero h1 span{color:var(--gold);}
+.hero-sub{color:rgba(255,255,255,0.45);font-size:15px;max-width:480px;margin:0 auto 32px;}
+.hero-dates{display:inline-flex;align-items:center;gap:12px;background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:30px;padding:8px 20px;color:var(--gold-light);font-size:13px;font-weight:500;}
+
+/* TABS */
+.tabs{display:flex;background:var(--navy-mid);border-bottom:1px solid var(--border);overflow-x:auto;}
+.tab-btn{flex:1;padding:16px 20px;background:none;border:none;color:rgba(255,255,255,0.4);font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;}
+.tab-btn:hover{color:rgba(255,255,255,0.7);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.section{display:none;}.section.active{display:block;}
+
+/* PRIZES */
+.prizes-wrap{max-width:860px;margin:0 auto;padding:48px 32px;}
+.prizes-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.prizes-sub{color:var(--muted);font-size:14px;margin-bottom:32px;}
+.prizes-grid{display:grid;grid-template-columns:1.15fr 1fr 0.9fr;gap:16px;align-items:end;}
+.prize-card{border-radius:14px;padding:28px 24px;text-align:center;}
+.prize-card.first{background:var(--gold);padding-top:40px;}
+.prize-card.second{background:var(--navy);}
+.prize-card.third{background:var(--navy-mid);}
+.prize-medal{font-size:36px;margin-bottom:12px;}
+.prize-pos{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:8px;}
+.prize-card.first .prize-pos{color:rgba(26,31,53,0.6);}
+.prize-card.second .prize-pos,.prize-card.third .prize-pos{color:var(--gold);}
+.prize-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;}
+.prize-card.first .prize-name{color:var(--navy);}
+.prize-card.second .prize-name,.prize-card.third .prize-name{color:var(--white);}
+
+/* WHY NOW */
+.why-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;}
+.why-title{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;color:var(--navy);line-height:1.15;margin-bottom:28px;max-width:560px;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.why-card{background:var(--navy);border-radius:14px;padding:28px 22px;border:1px solid var(--border);}
+.why-icon{font-size:28px;margin-bottom:16px;}
+.why-card-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:10px;line-height:1.3;}
+.why-card-desc{font-size:13.5px;color:rgba(255,255,255,0.55);line-height:1.65;}
+
+/* SCORING */
+.scoring-wrap{max-width:860px;margin:0 auto;padding:48px 32px;}
+.scoring-title{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.scoring-sub{color:var(--muted);font-size:14px;margin-bottom:36px;}
+.score-section{margin-bottom:32px;}
+.score-section-label{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:12px;}
+.score-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.score-rows{background:var(--white);border-radius:12px;border:1px solid #e5dfc8;overflow:hidden;}
+.score-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #f0ece0;gap:16px;}
+.score-row:last-child{border-bottom:none;}
+.score-row-label{font-size:14px;color:var(--text);flex:1;}
+.score-row-label small{display:block;font-size:12px;color:var(--muted);margin-top:2px;}
+.pts-badge{font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap;}
+.pts-badge.regular{background:var(--navy);color:var(--gold-light);}
+.pts-badge.group{background:var(--green-soft);color:#15803d;border:1px solid rgba(34,197,94,0.3);}
+.bonus-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
+.bonus-card{background:var(--navy);border-radius:12px;padding:20px;border:1px solid var(--border);}
+.bonus-card-icon{font-size:24px;margin-bottom:8px;}
+.bonus-card-title{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:4px;}
+.bonus-card-desc{font-size:12.5px;color:rgba(255,255,255,0.55);line-height:1.5;}
+.bonus-card-pts{margin-top:12px;font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--gold-light);}
+
+/* TRACKER */
+.tracker-wrap{max-width:1100px;margin:0 auto;padding:40px 32px 80px;}
+.tracker-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap;}
+.tracker-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--navy);}
+.tracker-sub{color:var(--muted);font-size:13px;margin-top:4px;}
+
+/* DAY BAR */
+.day-bar{background:var(--navy);border-radius:14px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.day-badge{background:rgba(201,168,76,0.15);border:1px solid var(--border);border-radius:8px;padding:6px 14px;}
+.day-badge-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);}
+.day-badge-val{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--gold);}
+.day-week{font-size:12px;color:rgba(255,255,255,0.4);}
+.day-actions{display:flex;gap:10px;align-items:center;}
+.btn-close-day{background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:10px 20px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;}
+.btn-close-day:hover{background:var(--gold-light);}
+.btn-close-day:disabled{opacity:0.4;cursor:not-allowed;}
+.btn-sec{padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.15s;}
+.btn-sec:hover{border-color:var(--gold);color:var(--gold);}
+
+/* BONUS ALERTS */
+.bonus-alert{border-radius:10px;padding:12px 18px;margin-bottom:12px;font-size:13px;font-weight:500;display:none;}
+.bonus-alert.show{display:block;}
+.bonus-alert.racha{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);color:#15803d;}
+.bonus-alert.grupo{background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold-dim);}
+
+/* GROUP PANEL */
+.group-panel{background:var(--navy);border-radius:14px;padding:20px 24px;margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;}
+.group-block-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.group-stat{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--white);}
+.group-stat span{font-size:13px;font-weight:400;color:rgba(255,255,255,0.4);margin-left:4px;}
+.progress-bar-wrap{margin-top:8px;background:rgba(255,255,255,0.08);border-radius:6px;height:6px;overflow:hidden;}
+.progress-bar-fill{height:100%;border-radius:6px;background:var(--gold);transition:width 0.4s ease;}
+.progress-bar-fill.done{background:var(--green);}
+.group-status{margin-top:6px;font-size:11px;color:rgba(255,255,255,0.4);}
+.group-status.achieved{color:var(--green);font-weight:600;}
+
+/* SDR GRID */
+.sdr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+.sdr-card{background:var(--white);border:1px solid #e5dfc8;border-radius:14px;overflow:hidden;}
+.sdr-card-head{background:var(--navy);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.sdr-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--white);}
+.sdr-pts-info{text-align:right;}
+.sdr-today-pts{font-size:11px;color:var(--gold);font-weight:600;}
+.sdr-total-pts{font-size:10px;color:rgba(255,255,255,0.4);}
+.sdr-card-body{padding:14px 16px;}
+.input-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:6px;}
+.input-row:last-child{margin-bottom:0;}
+.input-label{font-size:11.5px;color:var(--muted);flex:1;}
+.input-field{width:56px;padding:4px 6px;border:1px solid #d4c89a;border-radius:6px;font-size:13px;font-weight:600;text-align:center;font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);transition:border-color 0.15s;}
+.input-field:focus{outline:none;border-color:var(--gold);background:var(--white);}
+.input-pts{font-size:11px;font-weight:700;color:var(--gold-dim);width:38px;text-align:right;}
+.input-divider{border:none;border-top:1px dashed #e5dfc8;margin:8px 0;}
+
+/* LEADERBOARD */
+.lb-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:14px;}
+.leaderboard{background:var(--white);border:1px solid #e5dfc8;border-radius:14px;overflow:hidden;margin-bottom:24px;}
+.lb-head{background:var(--navy);display:grid;grid-template-columns:44px 1fr repeat(6,60px) 68px;padding:10px 18px;gap:6px;align-items:center;}
+.lb-head span{font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.4);text-align:center;}
+.lb-head span:nth-child(2){text-align:left;}
+.lb-row{display:grid;grid-template-columns:44px 1fr repeat(6,60px) 68px;padding:12px 18px;gap:6px;align-items:center;border-bottom:1px solid #f0ece0;transition:background 0.15s;}
+.lb-row:last-child{border-bottom:none;}
+.lb-row:hover{background:var(--cream);}
+.lb-rank{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-align:center;}
+.lb-rank.r1{color:#C9A84C;}.lb-rank.r2{color:#9ca3af;}.lb-rank.r3{color:#cd7f32;}.lb-rank.rn{color:#d1d5db;}
+.lb-name{font-size:13px;font-weight:600;color:var(--text);}
+.lb-cell{font-size:12px;font-weight:500;color:var(--muted);text-align:center;}
+.lb-total{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--navy);text-align:center;}
+.lb-row.rank-1{background:rgba(201,168,76,0.06);}
+
+/* HISTORY */
+.history-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px;}
+.history-list{display:flex;flex-direction:column;gap:8px;}
+.history-item{background:var(--white);border:1px solid #e5dfc8;border-radius:10px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.history-date{font-size:13px;font-weight:600;color:var(--navy);white-space:nowrap;}
+.history-badges{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+.h-badge{background:var(--cream-dark);border-radius:4px;padding:2px 8px;font-size:11px;color:var(--muted);}
+.h-badge.bonus{background:rgba(34,197,94,0.12);color:#15803d;font-weight:600;}
+.h-badge.gold{background:rgba(201,168,76,0.15);color:var(--gold-dim);font-weight:600;}
+.btn-edit{background:none;border:1px solid #d4c89a;border-radius:5px;padding:3px 10px;font-size:11px;cursor:pointer;color:var(--muted);font-family:'Inter',sans-serif;}
+.btn-edit:hover{border-color:var(--gold);color:var(--gold-dim);}
+
+footer{background:var(--navy);text-align:center;padding:24px 32px;color:rgba(255,255,255,0.25);font-size:12px;}
+footer span{color:var(--gold);}
+
+@media(max-width:800px){
+  .hero h1{font-size:34px;}
+  .prizes-grid,.why-grid,.bonus-grid{grid-template-columns:1fr;}
+  .sdr-grid{grid-template-columns:1fr 1fr;}
+  .group-panel{grid-template-columns:1fr;}
+  .lb-head,.lb-row{grid-template-columns:36px 1fr repeat(3,48px) 56px;}
+  .lb-head span:nth-child(4),.lb-head span:nth-child(5),.lb-head span:nth-child(6),
+  .lb-row div:nth-child(5),.lb-row div:nth-child(6),.lb-row div:nth-child(7){display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-eyebrow">⚡ ePackPro · SDR Challenge</div>
+  <h1>Gold Rush<br><span>Junio 2026</span></h1>
+  <p class="hero-sub">Dos semanas. Seis SDRs. Un solo podio. Suma puntos por actividad, demos y cierres — y llévate el oro.</p>
+  <div class="hero-dates">📅 15 de junio → 26 de junio · 10 días · cierre el viernes 26 a las 10:00h</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('premios',this)">🏆 Premios</button>
+  <button class="tab-btn" onclick="showTab('puntuacion',this)">📋 Sistema de puntos</button>
+  <button class="tab-btn" onclick="showTab('tracker',this)">⚡ Tracker & Ranking</button>
+</div>
+
+<div id="loading-bar" style="display:none;background:var(--gold);height:3px;width:100%;"></div>
+<div id="save-indicator" style="position:fixed;bottom:20px;right:20px;background:var(--navy);color:var(--gold);padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;opacity:0;transition:opacity 0.3s;z-index:999;">💾 Guardando...</div>
+<div id="error-toast" style="display:none;position:fixed;bottom:20px;right:20px;background:#1a3340;color:white;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;z-index:999;border:1px solid var(--gold);max-width:300px;"></div>
+
+<!-- PREMIOS -->
+<div id="tab-premios" class="section active">
+  <div class="prizes-wrap">
+    <div class="why-eyebrow">¿Por qué ahora?</div>
+    <div class="why-title">El pipeline de julio no se construye solo.</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">☀️</div>
+        <div class="why-card-title">Junio es el momento</div>
+        <div class="why-card-desc">La segunda quincena es pico de energía SDR. Los clientes están accesibles, las decisiones se mueven rápido. Si no construimos ahora, julio arranca vacío.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🤜</div>
+        <div class="why-card-title">Esto es trabajo en equipo</div>
+        <div class="why-card-desc">Hay puntos grupales que solo se consiguen si todos aportan. No se trata de hundir al compañero — se trata de que el equipo llegue junto y todos se lleven algo.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-card-title">Se premia al que destaque, no se penaliza al resto</div>
+        <div class="why-card-desc">Llegar 4º, 5º o 6º con tus KPIs cumplidos es un resultado correcto. El challenge premia a quien va por encima, no castiga a quien cumple.</div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #e5dfc8;margin:40px 0 36px;"></div>
+    <div class="prizes-title">Dos semanas de trabajo. Tres premios. Un ganador.</div>
+    <p class="prizes-sub">Los premios se entregan al finalizar el challenge el 26 de junio. El ranking final decide el podio.</p>
+    <div class="prizes-grid">
+      <div class="prize-card first"><div class="prize-medal">🥇</div><div class="prize-pos">1er puesto</div><div class="prize-name">AirPods</div></div>
+      <div class="prize-card second"><div class="prize-medal">🥈</div><div class="prize-pos">2º puesto</div><div class="prize-name">Gift Card Amazon</div></div>
+      <div class="prize-card third"><div class="prize-medal">🥉</div><div class="prize-pos">3er puesto</div><div class="prize-name">Botella de Vino o Champagne</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PUNTUACIÓN -->
+<div id="tab-puntuacion" class="section">
+  <div class="scoring-wrap">
+    <div class="scoring-title">La actividad te mantiene en carrera. Los resultados te hacen ganar.</div>
+    <p class="scoring-sub">Los puntos son diarios. Cada día se registra por separado y se acumula en el ranking total. Los bonus semanales se detectan automáticamente.</p>
+    <div class="score-section">
+      <div class="score-section-label">📞 Llamadas conectadas — por día</div>
+      <div class="score-rows">
+        <div class="score-row"><div class="score-row-label">20 – 29 llamadas conectadas<small>Alguien cogió. Marcar y colgar no cuenta.</small></div><span class="pts-badge regular">+1 pt / día</span></div>
+        <div class="score-row"><div class="score-row-label">30 – 39 llamadas conectadas</div><span class="pts-badge regular">+2 pts / día</span></div>
+        <div class="score-row"><div class="score-row-label">40 o más llamadas conectadas</div><span class="pts-badge regular">+3 pts / día</span></div>
+      </div>
+    </div>
+    <div class="score-section">
+      <div class="score-section-label">🗂️ Pipeline — Leads Palantir</div>
+      <div class="score-rows">
+        <div class="score-row"><div class="score-row-label">Subir 50 leads en Palantir<small>Por semana. Rellena la base de datos para que el equipo tenga dónde llamar.</small></div><span class="pts-badge regular">+2 pts / semana</span></div>
+      </div>
+    </div>
+    <div class="score-section">
+      <div class="score-section-label">📅 DMB — Demo agendada — por día</div>
+      <div class="score-rows">
+        <div class="score-row"><div class="score-row-label">Demo inbound agendada<small>El cliente llegó por su cuenta.</small></div><span class="pts-badge regular">+1 pt / demo</span></div>
+        <div class="score-row"><div class="score-row-label">Demo outbound agendada<small>Tú fuiste a buscarlo. Más esfuerzo, más puntos.</small></div><span class="pts-badge regular">+2 pts / demo</span></div>
+      </div>
+    </div>
+    <div class="score-section">
+      <div class="score-section-label">🤝 CWD — Venta cerrada — por día</div>
+      <div class="score-rows">
+        <div class="score-row"><div class="score-row-label">Cierre inbound</div><span class="pts-badge regular">+3 pts / cierre</span></div>
+        <div class="score-row"><div class="score-row-label">Cierre outbound</div><span class="pts-badge regular">+5 pts / cierre</span></div>
+      </div>
+    </div>
+    <div class="score-section">
+      <div class="score-section-label">⚡ Bonus individuales — automáticos por semana</div>
+      <div class="bonus-grid">
+        <div class="bonus-card"><div class="bonus-card-icon">🎯</div><div class="bonus-card-title">15 demos en la semana</div><div class="bonus-card-desc">El sistema lo detecta automáticamente cuando acumulas 15 demos en la misma semana natural.</div><div class="bonus-card-pts">+10 pts</div></div>
+        <div class="bonus-card"><div class="bonus-card-icon">💰</div><div class="bonus-card-title">3 cierres en la semana</div><div class="bonus-card-desc">El sistema lo detecta automáticamente cuando acumulas 3 cierres en la misma semana natural.</div><div class="bonus-card-pts">+15 pts</div></div>
+      </div>
+    </div>
+    <div class="score-section">
+      <div class="score-section-label">🤜 Bonus grupales — automáticos</div>
+      <div class="score-rows">
+        <div class="score-row"><div class="score-row-label">Meta de equipo: 60 demos en la semana<small>Si entre los 6 SDRs suman 60 demos en la semana, cada uno recibe 5 pts extra automáticamente.</small></div><span class="pts-badge group">+5 pts c/u</span></div>
+        <div class="score-row"><div class="score-row-label">Racha diaria de equipo<small>Si todos los SDRs consiguen al menos 1 demo ese día, cada uno suma 3 pts al cerrar el día.</small></div><span class="pts-badge group">+3 pts c/u / día</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRACKER -->
+<div id="tab-tracker" class="section">
+  <div class="tracker-wrap">
+    <div class="tracker-top">
+      <div>
+        <div class="tracker-title">⚡ Tracker diario</div>
+        <div class="tracker-sub">Introduce los datos del día, revísalos y cierra cuando termines. Los puntos se suman al ranking automáticamente.</div>
+      </div>
+    </div>
+
+    <div class="day-bar">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="day-badge">
+          <div class="day-badge-label">Día activo</div>
+          <div class="day-badge-val" id="current-date-display">—</div>
+        </div>
+        <div class="day-week" id="current-week-display"></div>
+      </div>
+      <div class="day-actions">
+        <button class="btn-sec" onclick="openDayPicker()">📅 Cambiar fecha</button>
+        <button class="btn-close-day" id="btn-close-day" onclick="closeDay()">✓ Cerrar día y guardar</button>
+      </div>
+    </div>
+
+    <div id="alert-racha" class="bonus-alert racha">🔥 ¡Racha activa! Todos los SDRs tienen al menos 1 demo hoy → +3 pts a cada uno al cerrar el día</div>
+    <div id="alert-grupo" class="bonus-alert grupo">🤜 ¡Meta grupal semanal alcanzada! El equipo suma 60 demos esta semana → +5 pts a cada uno</div>
+
+    <div class="group-panel">
+      <div>
+        <div class="group-block-title">🤜 Demos equipo esta semana</div>
+        <div class="group-stat" id="group-demos-display">0 <span>/ 60</span></div>
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="group-demos-bar" style="width:0%"></div></div>
+        <div class="group-status" id="group-demos-status">Faltan 60 demos</div>
+      </div>
+      <div>
+        <div class="group-block-title">🔥 Racha hoy</div>
+        <div class="group-stat" id="group-streak-display" style="font-size:14px;padding-top:4px;">—</div>
+        <div class="group-status" id="group-streak-status">Todos con ≥1 demo = +3 pts c/u</div>
+      </div>
+      <div>
+        <div class="group-block-title">📅 Días registrados</div>
+        <div class="group-stat" id="days-registered">0 <span>/ 10</span></div>
+        <div class="group-status" id="challenge-progress">días del challenge</div>
+      </div>
+    </div>
+
+    <div class="sdr-grid" id="sdr-grid"></div>
+
+    <div class="lb-title">🏆 Ranking acumulado</div>
+    <div class="leaderboard">
+      <div class="lb-head">
+        <span>#</span><span>SDR</span><span>Llamadas</span><span>Leads</span><span>DMB</span><span>CWD</span><span>Bonus ind.</span><span>Grupo</span><span>Total</span>
+      </div>
+      <div id="leaderboard-rows"></div>
+    </div>
+
+    <div class="history-title">📋 Días cerrados</div>
+    <div class="history-list" id="history-list"></div>
+  </div>
+</div>
+
+<footer>ePackPro · Gold Rush SDR Challenge · Junio 2026 &nbsp;|&nbsp; Diseñado con <span>♥</span> para el mejor equipo SDR</footer>
+
+<script>
+const SUPABASE_URL = 'https://ilzntryzijdfnntwuthp.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlsem50cnl6aWpkZm5udHd1dGhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5ODU0MTgsImV4cCI6MjA5MTU2MTQxOH0.WAgYFBUTPo9QhMtDhH8F1e3vCSvA-8OCcdXnah3FRBk';
+const TABLE = 'goldrush_dias';
+const SDR_NAMES = ['Roberto','Giancarlo','Luz','Katherine','Yibelly','Alfredo'];
+const WEEK1 = ['2026-06-15','2026-06-16','2026-06-17','2026-06-18','2026-06-19','2026-06-20'];
+const WEEK2 = ['2026-06-23','2026-06-24','2026-06-25','2026-06-26'];
+const ALL_DAYS = [...WEEK1, ...WEEK2];
+
+let currentDate = todayStr();
+let todayInputs = {};
+let allRows = [];
+let isSaving = false;
+
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function formatDate(d) {
+  const [,m,day] = d.split('-');
+  const months = ['','ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return `${parseInt(day)} ${months[parseInt(m)]}`;
+}
+function getWeek(date) { return WEEK1.includes(date)?1:WEEK2.includes(date)?2:0; }
+function initInputs() { SDR_NAMES.forEach(n=>{ todayInputs[n]={llamadas:0,leads:0,dmb_in:0,dmb_out:0,cwd_in:0,cwd_out:0}; }); }
+
+async function sb(path, opts={}) {
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...opts,
+    headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json','Prefer':'return=representation',...(opts.headers||{})}
+  });
+  const t = await r.text();
+  return t ? JSON.parse(t) : null;
+}
+
+async function loadData() {
+  showLoading(true);
+  try {
+    const rows = await sb(`${TABLE}?select=*&order=fecha.asc`);
+    allRows = rows || [];
+    initInputs();
+    allRows.filter(r=>r.fecha===currentDate).forEach(r=>{
+      if(todayInputs[r.sdr_name]) todayInputs[r.sdr_name]={llamadas:r.llamadas||0,leads:r.leads||0,dmb_in:r.dmb_in||0,dmb_out:r.dmb_out||0,cwd_in:r.cwd_in||0,cwd_out:r.cwd_out||0};
+    });
+    render();
+  } catch(e){ showMsg('Error cargando datos. Revisa la conexión.','#c0392b'); console.error(e); }
+  finally { showLoading(false); }
+}
+
+async function closeDay() {
+  if(isSaving) return;
+  const week = getWeek(currentDate);
+  if(!week){ showMsg('⚠️ Fecha fuera del challenge. Solo lunes a viernes sem1 o lun-jue sem2.','#c0392b'); return; }
+  if(!confirm(`¿Cerrar el día ${formatDate(currentDate)} y guardar en el ranking?`)) return;
+
+  isSaving = true;
+  document.getElementById('btn-close-day').disabled = true;
+  showSaving(true);
+
+  try {
+    const rachaActiva = SDR_NAMES.every(n=>(todayInputs[n].dmb_in+todayInputs[n].dmb_out)>=1);
+    const rachaBonus = rachaActiva ? 3 : 0;
+
+    for(const name of SDR_NAMES) {
+      await sb(`${TABLE}?fecha=eq.${currentDate}&sdr_name=eq.${encodeURIComponent(name)}`,{method:'DELETE'});
+      await sb(TABLE,{method:'POST',body:JSON.stringify({
+        fecha:currentDate, sdr_name:name,
+        llamadas:todayInputs[name].llamadas, leads:todayInputs[name].leads,
+        dmb_in:todayInputs[name].dmb_in, dmb_out:todayInputs[name].dmb_out,
+        cwd_in:todayInputs[name].cwd_in, cwd_out:todayInputs[name].cwd_out,
+        racha_bonus:rachaBonus
+      })});
+    }
+
+    showMsg('✅ Día cerrado correctamente','#1a3340');
+    await loadData();
+  } catch(e){ showMsg('❌ Error guardando. Inténtalo de nuevo.','#c0392b'); console.error(e); }
+  finally { isSaving=false; document.getElementById('btn-close-day').disabled=false; showSaving(false); }
+}
+
+function calcCallPts(v){ return v>=40?3:v>=30?2:v>=20?1:0; }
+
+function getSdrStats(name) {
+  const rows = allRows.filter(r=>r.sdr_name===name);
+  let callPts=0,leadsPts=0,dmbPts=0,cwdPts=0,bonusInd=0,bonusGrp=0;
+  rows.forEach(r=>{
+    callPts+=calcCallPts(r.llamadas||0);
+    if((r.leads||0)>=50) leadsPts+=2;
+    dmbPts+=(r.dmb_in||0)*1+(r.dmb_out||0)*2;
+    cwdPts+=(r.cwd_in||0)*3+(r.cwd_out||0)*5;
+    bonusGrp+=(r.racha_bonus||0);
+  });
+  [WEEK1,WEEK2].forEach(wdays=>{
+    const wr=rows.filter(r=>wdays.includes(r.fecha));
+    const demos=wr.reduce((s,r)=>s+(r.dmb_in||0)+(r.dmb_out||0),0);
+    const cwds=wr.reduce((s,r)=>s+(r.cwd_in||0)+(r.cwd_out||0),0);
+    if(demos>=15) bonusInd+=10;
+    if(cwds>=3) bonusInd+=15;
+    // group 60 demos
+    const teamDemos=allRows.filter(r=>wdays.includes(r.fecha)).reduce((s,r)=>s+(r.dmb_in||0)+(r.dmb_out||0),0);
+    if(teamDemos>=60) bonusGrp+=5;
+  });
+  const total=callPts+leadsPts+dmbPts+cwdPts+bonusInd+bonusGrp;
+  return {callPts,leadsPts,dmbPts,cwdPts,bonusInd,bonusGrp,total};
+}
+
+function getWeekTeamDemos(week) {
+  const wdays=week===1?WEEK1:WEEK2;
+  return allRows.filter(r=>wdays.includes(r.fecha)).reduce((s,r)=>s+(r.dmb_in||0)+(r.dmb_out||0),0);
+}
+
+function getTodayPts(name) {
+  const d=todayInputs[name];
+  return calcCallPts(d.llamadas)+(d.leads>=50?2:0)+d.dmb_in+d.dmb_out*2+d.cwd_in*3+d.cwd_out*5;
+}
+
+function render() {
+  renderBar(); renderAlerts(); renderGroup(); renderCards(); renderLeaderboard(); renderHistory();
+}
+
+function renderBar() {
+  document.getElementById('current-date-display').textContent = formatDate(currentDate);
+  const w=getWeek(currentDate);
+  document.getElementById('current-week-display').textContent = w?`Semana ${w} del challenge`:'⚠️ Fecha fuera del challenge';
+  const closed=[...new Set(allRows.map(r=>r.fecha))].length;
+  document.getElementById('days-registered').innerHTML=`${closed} <span>/ 10</span>`;
+}
+
+function renderAlerts() {
+  const w=getWeek(currentDate)||1;
+  const teamDemos=getWeekTeamDemos(w);
+  const racha=SDR_NAMES.every(n=>(todayInputs[n].dmb_in+todayInputs[n].dmb_out)>=1);
+  document.getElementById('alert-racha').className='bonus-alert racha'+(racha?' show':'');
+  document.getElementById('alert-grupo').className='bonus-alert grupo'+(teamDemos>=60?' show':'');
+}
+
+function renderGroup() {
+  const w=getWeek(currentDate)||1;
+  const td=getWeekTeamDemos(w);
+  const pct=Math.min(100,Math.round(td/60*100));
+  const done=td>=60;
+  document.getElementById('group-demos-display').innerHTML=`${td} <span>/ 60</span>`;
+  const bar=document.getElementById('group-demos-bar');
+  bar.style.width=pct+'%';
+  done?bar.classList.add('done'):bar.classList.remove('done');
+  const st=document.getElementById('group-demos-status');
+  st.textContent=done?'✅ ¡Bonus grupal conseguido!':`Faltan ${60-td} demos`;
+  st.className='group-status'+(done?' achieved':'');
+
+  const racha=SDR_NAMES.every(n=>(todayInputs[n].dmb_in+todayInputs[n].dmb_out)>=1);
+  const sinDemo=SDR_NAMES.filter(n=>(todayInputs[n].dmb_in+todayInputs[n].dmb_out)===0);
+  const se=document.getElementById('group-streak-display');
+  const ss=document.getElementById('group-streak-status');
+  if(racha){se.innerHTML=`<span style="color:var(--green)">✅ Todos activos</span>`;ss.textContent='+3 pts al cerrar el día';ss.className='group-status achieved';}
+  else{se.innerHTML=`<span style="color:rgba(255,255,255,0.4);font-size:12px;">${sinDemo.join(', ')} sin demos</span>`;ss.textContent='Todos necesitan ≥1 demo';ss.className='group-status';}
+}
+
+function renderCards() {
+  const g=document.getElementById('sdr-grid'); g.innerHTML='';
+  SDR_NAMES.forEach(name=>{
+    const d=todayInputs[name];
+    const tp=getTodayPts(name);
+    const tot=getSdrStats(name).total;
+    const cp=calcCallPts(d.llamadas);
+    const c=document.createElement('div'); c.className='sdr-card';
+    c.innerHTML=`
+      <div class="sdr-card-head">
+        <div class="sdr-name">${name}</div>
+        <div class="sdr-pts-info">
+          <div class="sdr-today-pts">hoy +${tp} pts</div>
+          <div class="sdr-total-pts">total ${tot} pts</div>
+        </div>
+      </div>
+      <div class="sdr-card-body">
+        <div class="input-row"><span class="input-label">📞 Llamadas conectadas</span>
+          <input class="input-field" type="number" min="0" value="${d.llamadas}" onchange="upd('${name}','llamadas',this.value)"/>
+          <span class="input-pts">${cp>0?'+'+cp+'p':'—'}</span></div>
+        <div class="input-row"><span class="input-label">🗂️ Leads Palantir</span>
+          <input class="input-field" type="number" min="0" value="${d.leads}" onchange="upd('${name}','leads',this.value)"/>
+          <span class="input-pts">${d.leads>=50?'+2p':'—'}</span></div>
+        <hr class="input-divider"/>
+        <div class="input-row"><span class="input-label">📅 Demos inbound</span>
+          <input class="input-field" type="number" min="0" value="${d.dmb_in}" onchange="upd('${name}','dmb_in',this.value)"/>
+          <span class="input-pts">${d.dmb_in>0?'+'+d.dmb_in+'p':'—'}</span></div>
+        <div class="input-row"><span class="input-label">📅 Demos outbound</span>
+          <input class="input-field" type="number" min="0" value="${d.dmb_out}" onchange="upd('${name}','dmb_out',this.value)"/>
+          <span class="input-pts">${d.dmb_out>0?'+'+(d.dmb_out*2)+'p':'—'}</span></div>
+        <hr class="input-divider"/>
+        <div class="input-row"><span class="input-label">🤝 Cierres inbound</span>
+          <input class="input-field" type="number" min="0" value="${d.cwd_in}" onchange="upd('${name}','cwd_in',this.value)"/>
+          <span class="input-pts">${d.cwd_in>0?'+'+(d.cwd_in*3)+'p':'—'}</span></div>
+        <div class="input-row"><span class="input-label">🤝 Cierres outbound</span>
+          <input class="input-field" type="number" min="0" value="${d.cwd_out}" onchange="upd('${name}','cwd_out',this.value)"/>
+          <span class="input-pts">${d.cwd_out>0?'+'+(d.cwd_out*5)+'p':'—'}</span></div>
+      </div>`;
+    g.appendChild(c);
+  });
+}
+
+function renderLeaderboard() {
+  const ranked=SDR_NAMES.map(n=>({n,...getSdrStats(n)})).sort((a,b)=>b.total-a.total);
+  const rc=['r1','r2','r3','rn','rn','rn'], medals=['🥇','🥈','🥉','4','5','6'];
+  document.getElementById('leaderboard-rows').innerHTML=ranked.map((r,i)=>`
+    <div class="lb-row ${i===0?'rank-1':''}">
+      <div class="lb-rank ${rc[i]}">${medals[i]}</div>
+      <div class="lb-name">${r.n}</div>
+      <div class="lb-cell">${r.callPts>0?'+'+r.callPts:'—'}</div>
+      <div class="lb-cell">${r.leadsPts>0?'+'+r.leadsPts:'—'}</div>
+      <div class="lb-cell">${r.dmbPts>0?'+'+r.dmbPts:'—'}</div>
+      <div class="lb-cell">${r.cwdPts>0?'+'+r.cwdPts:'—'}</div>
+      <div class="lb-cell">${r.bonusInd>0?'+'+r.bonusInd:'—'}</div>
+      <div class="lb-cell">${r.bonusGrp>0?'+'+r.bonusGrp:'—'}</div>
+      <div class="lb-total">${r.total}</div>
+    </div>`).join('');
+}
+
+function renderHistory() {
+  const dates=[...new Set(allRows.map(r=>r.fecha))].sort().reverse();
+  const el=document.getElementById('history-list');
+  if(!dates.length){el.innerHTML='<div style="color:var(--muted);font-size:13px;padding:12px 0;">No hay días cerrados aún.</div>';return;}
+  el.innerHTML=dates.map(date=>{
+    const dr=allRows.filter(r=>r.fecha===date);
+    const demos=dr.reduce((s,r)=>s+(r.dmb_in||0)+(r.dmb_out||0),0);
+    const cwds=dr.reduce((s,r)=>s+(r.cwd_in||0)+(r.cwd_out||0),0);
+    const racha=dr[0]?.racha_bonus||0;
+    const w=getWeek(date);
+    return `<div class="history-item">
+      <span class="history-date">${formatDate(date)}${w?' · Sem '+w:''}</span>
+      <div class="history-badges">
+        <span class="h-badge">🎯 ${demos} demos</span>
+        <span class="h-badge">🤝 ${cwds} cierres</span>
+        ${racha>0?`<span class="h-badge bonus">🔥 Racha activa</span>`:''}
+      </div>
+      <button class="btn-edit" onclick="editDay('${date}')">✏️ Editar</button>
+    </div>`;
+  }).join('');
+}
+
+function upd(name,field,value){ todayInputs[name][field]=parseFloat(value)||0; render(); }
+
+function openDayPicker(){
+  const d=prompt('Introduce la fecha del día a registrar (YYYY-MM-DD):',currentDate);
+  if(d&&/^\d{4}-\d{2}-\d{2}$/.test(d)){
+    currentDate=d; initInputs();
+    allRows.filter(r=>r.fecha===d).forEach(r=>{ if(todayInputs[r.sdr_name]) todayInputs[r.sdr_name]={llamadas:r.llamadas||0,leads:r.leads||0,dmb_in:r.dmb_in||0,dmb_out:r.dmb_out||0,cwd_in:r.cwd_in||0,cwd_out:r.cwd_out||0}; });
+    render();
+  }
+}
+
+function editDay(date){
+  currentDate=date; initInputs();
+  allRows.filter(r=>r.fecha===date).forEach(r=>{ if(todayInputs[r.sdr_name]) todayInputs[r.sdr_name]={llamadas:r.llamadas||0,leads:r.leads||0,dmb_in:r.dmb_in||0,dmb_out:r.dmb_out||0,cwd_in:r.cwd_in||0,cwd_out:r.cwd_out||0}; });
+  render();
+  document.querySelector('.day-bar').scrollIntoView({behavior:'smooth'});
+}
+
+function showTab(tab,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+function showLoading(s){document.getElementById('loading-bar').style.display=s?'block':'none';}
+function showSaving(s){document.getElementById('save-indicator').style.opacity=s?'1':'0';}
+function showMsg(msg,bg){const e=document.getElementById('error-toast');e.textContent=msg;e.style.background=bg||'#1a3340';e.style.display='block';setTimeout(()=>e.style.display='none',3500);}
+
+initInputs();
+loadData();
+</script>
+</body>
+</html>
