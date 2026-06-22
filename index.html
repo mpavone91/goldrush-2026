@@ -349,12 +349,21 @@ const WEEK1 = ['2026-06-15','2026-06-16','2026-06-17','2026-06-18','2026-06-19',
 const WEEK2 = ['2026-06-23','2026-06-24','2026-06-25','2026-06-26'];
 const ALL_DAYS = [...WEEK1, ...WEEK2];
 
-let currentDate = todayStr();
-let todayInputs = {};
+function todayStr() {
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+let currentDate = (()=>{
+  const t=todayStr();
+  // If today is a valid challenge day use it, otherwise find the nearest one
+  if(ALL_DAYS.includes(t)) return t;
+  // Pick the last challenge day that's <= today, or first if none
+  const past=[...ALL_DAYS].filter(d=>d<=t);
+  return past.length?past[past.length-1]:ALL_DAYS[0];
+})();
 let allRows = [];
 let isSaving = false;
 
-function todayStr() { return new Date().toISOString().split('T')[0]; }
 function formatDate(d) {
   const [,m,day] = d.split('-');
   const months = ['','ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
