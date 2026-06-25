@@ -99,6 +99,7 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);li
 .group-status.achieved{color:var(--green);font-weight:600;}
 .sdr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
 .sdr-card{background:var(--white);border:1px solid #e5dfc8;border-radius:14px;overflow:hidden;}
+.sdr-card.rush{border:2px solid var(--gold);box-shadow:0 4px 14px rgba(201,168,76,0.25);}
 .sdr-card-head{background:var(--navy);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
 .sdr-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--white);}
 .sdr-pts-info{text-align:right;}
@@ -158,6 +159,13 @@ footer span{color:var(--gold);}
   <div class="hero-dates">📅 15 de junio → 26 de junio · 10 días · cierre el viernes 26 a las 10:00h</div>
 </div>
 
+<div id="rush-hero-banner" style="display:none;background:linear-gradient(110deg,#C9A84C,#F0D080);text-align:center;padding:16px 24px;">
+  <div style="max-width:860px;margin:0 auto;color:#1a1f35;">
+    <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">🔥 RUSH FINAL ACTIVO — Solo hoy 25 de junio</span>
+    <span style="font-size:13px;font-weight:500;margin-left:8px;">Puntos de actividad multiplicados. Mira la pestaña "Sistema de puntos" para ver cuánto vale todo hoy.</span>
+  </div>
+</div>
+
 <div class="tabs">
   <button class="tab-btn active" onclick="showTab('premios',this)">🏆 Premios</button>
   <button class="tab-btn" onclick="showTab('puntuacion',this)">📋 Sistema de puntos</button>
@@ -192,6 +200,48 @@ footer span{color:var(--gold);}
   <div class="scoring-wrap">
     <div class="scoring-title">La actividad te mantiene en carrera. Los resultados te hacen ganar.</div>
     <p class="scoring-sub">Los puntos son diarios. Cada día se registra por separado y se acumula en el ranking total. Los bonus semanales se detectan automáticamente.</p>
+
+    <div id="rush-scoring-panel" style="display:none;background:linear-gradient(135deg,#1a1f35,#252c47);border:2px solid var(--gold);border-radius:16px;padding:28px;margin-bottom:36px;">
+      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:6px;">🔥 RUSH FINAL — Puntos de HOY (25 jun)</div>
+      <div style="font-size:13.5px;color:rgba(255,255,255,0.6);margin-bottom:22px;line-height:1.6;">Solo durante el día de hoy, la actividad vale mucho más. Estos son los puntos especiales que aplican únicamente hoy. El resto de días vuelve a la tabla normal de abajo.</div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">📞 Llamadas conectadas — el doble de valor</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+          <div style="background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;"><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:6px;">20 conectadas</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);">+2 pts</div></div>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;"><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:6px;">30 conectadas</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);">+3 pts</div></div>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;"><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:6px;">40 conectadas</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);">+4 pts</div></div>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;"><div style="font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:6px;">50 conectadas</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);">+5 pts</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">🎯 Demos OUTBOUND — escalan de 2 en 2</div>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:10px;padding:16px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:2;">
+              1ª demo → <b style="color:var(--gold);">+2 pts</b><br>
+              2ª demo → <b style="color:var(--gold);">+4 pts</b><br>
+              3ª demo → <b style="color:var(--gold);">+6 pts</b><br>
+              4ª demo → <b style="color:var(--gold);">+8 pts</b>... y subiendo
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:10px;border-top:1px solid var(--border);padding-top:10px;">Aquí está el oro. Cuantas más outbound encadenes hoy, más vale cada una.</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px;">📥 Demos INBOUND — escalan también</div>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid var(--border);border-radius:10px;padding:16px;">
+            <div style="font-size:13px;color:rgba(255,255,255,0.7);line-height:2;">
+              1ª demo → <b style="color:var(--gold);">+1 pt</b><br>
+              2ª demo → <b style="color:var(--gold);">+3 pts</b><br>
+              3ª demo → <b style="color:var(--gold);">+5 pts</b><br>
+              4ª demo → <b style="color:var(--gold);">+7 pts</b>... y subiendo
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.45);margin-top:10px;border-top:1px solid var(--border);padding-top:10px;">Los cierres (CWD) y bonus se mantienen igual que siempre.</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="score-section">
       <div class="score-section-label">📞 Llamadas conectadas — por día</div>
       <div class="score-rows">
@@ -243,6 +293,14 @@ footer span{color:var(--gold);}
       <div>
         <div class="tracker-title">⚡ Tracker diario</div>
         <div class="tracker-sub">Introduce los datos del día, revísalos y cierra cuando termines. Los puntos se suman al ranking automáticamente.</div>
+      </div>
+    </div>
+    <div id="rush-banner" style="display:none;background:linear-gradient(110deg,#C9A84C,#F0D080);border-radius:14px;padding:18px 24px;margin-bottom:20px;color:#1a1f35;">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:6px;">🔥 RUSH FINAL — Solo hoy 25 de junio</div>
+      <div style="font-size:13.5px;line-height:1.6;font-weight:500;">
+        Puntos de actividad multiplicados <b>solo hoy</b>. Llamadas: 20→<b>2pts</b>, 30→<b>3pts</b>, 40→<b>4pts</b>, 50→<b>5pts</b>.
+        Demos outbound escalan <b>2-4-6-8...</b> (cada una vale más). Inbound escalan <b>1-3-5-7...</b>.
+        Cuantas más demos cierres seguidas hoy, más valen. ¡A por el sprint final!
       </div>
     </div>
     <div class="day-bar">
@@ -301,6 +359,14 @@ const SDR_NAMES = ['Roberto','Giancarlo','Luz','Katherine','Yibelly','Alfredo'];
 const WEEK1 = ['2026-06-15','2026-06-16','2026-06-17','2026-06-18','2026-06-19','2026-06-20'];
 const WEEK2 = ['2026-06-22','2026-06-23','2026-06-24','2026-06-25','2026-06-26'];
 const ALL_DAYS = [...WEEK1, ...WEEK2];
+const RUSH_DAY = '2026-06-25'; // Final rush — boosted activity scoring
+
+// Rush scoring helpers (only apply on RUSH_DAY)
+function calcCallPtsRush(v){ return v>=50?5:v>=40?4:v>=30?3:v>=20?2:0; }
+// Outbound demos escalate 2,4,6...: total for n demos = n*(n+1)
+function calcDmbOutRush(n){ return n*(n+1); }
+// Inbound demos escalate 1,3,5...: total for n demos = n*n
+function calcDmbInRush(n){ return n*n; }
 
 function todayStr() {
   const d = new Date();
@@ -383,9 +449,14 @@ function getSdrStats(name) {
   const rows = allRows.filter(r=>r.sdr_name===name);
   let callPts=0,leadsPts=0,dmbPts=0,cwdPts=0,bonusInd=0,bonusGrp=0;
   rows.forEach(r=>{
-    callPts+=calcCallPts(r.llamadas||0);
+    const isRush=r.fecha===RUSH_DAY;
+    callPts+=isRush?calcCallPtsRush(r.llamadas||0):calcCallPts(r.llamadas||0);
     if((r.leads||0)>=50) leadsPts+=2;
-    dmbPts+=(r.dmb_in||0)*1+(r.dmb_out||0)*2;
+    if(isRush){
+      dmbPts+=calcDmbOutRush(r.dmb_out||0)+calcDmbInRush(r.dmb_in||0);
+    }else{
+      dmbPts+=(r.dmb_in||0)*1+(r.dmb_out||0)*2;
+    }
     cwdPts+=(r.cwd_in||0)*3+(r.cwd_out||0)*5;
     bonusGrp+=(r.racha_bonus||0);
   });
@@ -409,6 +480,9 @@ function getWeekTeamDemos(week) {
 
 function getTodayPts(name) {
   const d=todayInputs[name];
+  if(currentDate===RUSH_DAY){
+    return calcCallPtsRush(d.llamadas)+(d.leads>=50?2:0)+calcDmbOutRush(d.dmb_out)+calcDmbInRush(d.dmb_in)+d.cwd_in*3+d.cwd_out*5;
+  }
   return calcCallPts(d.llamadas)+(d.leads>=50?2:0)+d.dmb_in+d.dmb_out*2+d.cwd_in*3+d.cwd_out*5;
 }
 
@@ -422,6 +496,9 @@ function renderBar() {
   document.getElementById('current-week-display').textContent = w?'Semana '+w+' del challenge':'Fecha fuera del challenge';
   const closed=[...new Set(allRows.map(r=>r.fecha))].length;
   document.getElementById('days-registered').innerHTML=closed+' <span>/ 10</span>';
+  // Rush banner
+  const rb=document.getElementById('rush-banner');
+  if(rb)rb.style.display=currentDate===RUSH_DAY?'block':'none';
 }
 
 function renderAlerts() {
@@ -454,12 +531,15 @@ function renderGroup() {
 
 function renderCards() {
   const g=document.getElementById('sdr-grid'); g.innerHTML='';
+  const isRush=currentDate===RUSH_DAY;
   SDR_NAMES.forEach(function(name){
     const d=todayInputs[name];
     const tp=getTodayPts(name);
     const tot=getSdrStats(name).total;
-    const cp=calcCallPts(d.llamadas);
-    const c=document.createElement('div'); c.className='sdr-card';
+    const cp=isRush?calcCallPtsRush(d.llamadas):calcCallPts(d.llamadas);
+    const dmbOutPts=isRush?calcDmbOutRush(d.dmb_out):d.dmb_out*2;
+    const dmbInPts=isRush?calcDmbInRush(d.dmb_in):d.dmb_in;
+    const c=document.createElement('div'); c.className='sdr-card'+(isRush?' rush':'');
     c.innerHTML=
       '<div class="sdr-card-head">'+
         '<div class="sdr-name">'+name+'</div>'+
@@ -478,10 +558,10 @@ function renderCards() {
         '<hr class="input-divider"/>'+
         '<div class="input-row"><span class="input-label">Demos inbound</span>'+
           '<input class="input-field" type="number" min="0" value="'+d.dmb_in+'" onchange="upd(\''+name+'\',\'dmb_in\',this.value)"/>'+
-          '<span class="input-pts">'+(d.dmb_in>0?'+'+d.dmb_in+'p':'--')+'</span></div>'+
+          '<span class="input-pts">'+(dmbInPts>0?'+'+dmbInPts+'p':'--')+'</span></div>'+
         '<div class="input-row"><span class="input-label">Demos outbound</span>'+
           '<input class="input-field" type="number" min="0" value="'+d.dmb_out+'" onchange="upd(\''+name+'\',\'dmb_out\',this.value)"/>'+
-          '<span class="input-pts">'+(d.dmb_out>0?'+'+(d.dmb_out*2)+'p':'--')+'</span></div>'+
+          '<span class="input-pts">'+(dmbOutPts>0?'+'+dmbOutPts+'p':'--')+'</span></div>'+
         '<hr class="input-divider"/>'+
         '<div class="input-row"><span class="input-label">Cierres inbound</span>'+
           '<input class="input-field" type="number" min="0" value="'+d.cwd_in+'" onchange="upd(\''+name+'\',\'cwd_in\',this.value)"/>'+
@@ -563,7 +643,17 @@ function showLoading(s){document.getElementById('loading-bar').style.display=s?'
 function showSaving(s){document.getElementById('save-indicator').style.opacity=s?'1':'0';}
 function showMsg(msg,bg){var e=document.getElementById('error-toast');e.textContent=msg;e.style.background=bg||'#1a3340';e.style.display='block';setTimeout(function(){e.style.display='none';},3500);}
 
+function applyRushUI(){
+  // Show rush banners if the REAL today is the rush day
+  const isRushToday = todayStr() === RUSH_DAY;
+  const hero=document.getElementById('rush-hero-banner');
+  const panel=document.getElementById('rush-scoring-panel');
+  if(hero)hero.style.display=isRushToday?'block':'none';
+  if(panel)panel.style.display=isRushToday?'block':'none';
+}
+
 initInputs();
+applyRushUI();
 loadData();
 </script>
 </body>
