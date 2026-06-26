@@ -156,13 +156,21 @@ footer span{color:var(--gold);}
   <div class="hero-eyebrow">⚡ ePackPro · SDR Challenge</div>
   <h1>Gold Rush<br><span>Junio 2026</span></h1>
   <p class="hero-sub">Dos semanas. Seis SDRs. Un solo podio. Suma puntos por actividad, demos y cierres — y llévate el oro.</p>
-  <div class="hero-dates">📅 15 de junio → 26 de junio · 10 días · cierre el viernes 26 a las 10:00h</div>
+  <div class="hero-dates">📅 15 de junio → 26 de junio · cierre el viernes 26 a las 17:00h</div>
 </div>
 
 <div id="rush-hero-banner" style="display:none;background:linear-gradient(110deg,#C9A84C,#F0D080);text-align:center;padding:16px 24px;">
   <div style="max-width:860px;margin:0 auto;color:#1a1f35;">
     <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">🔥 RUSH FINAL ACTIVO — Solo hoy 25 de junio</span>
     <span style="font-size:13px;font-weight:500;margin-left:8px;">Puntos de actividad multiplicados. Mira la pestaña "Sistema de puntos" para ver cuánto vale todo hoy.</span>
+  </div>
+</div>
+
+<div id="combo-hero-banner" style="display:none;background:linear-gradient(110deg,#1a1f35,#2f3859);border-bottom:2px solid var(--gold);text-align:center;padding:14px 24px;">
+  <div style="max-width:900px;margin:0 auto;color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+    <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);">🎯 CAMPANAZO FINAL — Último día del Gold Rush</span>
+    <span id="combo-hero-countdown" style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;padding:6px 14px;border-radius:8px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#4ade80;">⏳ --:--:--</span>
+    <span style="font-size:13px;font-weight:500;color:rgba(255,255,255,0.7);">Cierra a las 17:00h · Haz el ciclo completo (llamadas + demo + cierre) para los combos</span>
   </div>
 </div>
 
@@ -242,6 +250,47 @@ footer span{color:var(--gold);}
         </div>
       </div>
     </div>
+    <div id="combo-scoring-panel" style="display:none;background:linear-gradient(135deg,#1a1f35,#252c47);border:2px solid var(--gold);border-radius:16px;padding:28px;margin-bottom:36px;">
+      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--gold);margin-bottom:6px;">🎯 CAMPANAZO FINAL — Combo de HOY (26 jun)</div>
+      <div style="font-size:13.5px;color:rgba(255,255,255,0.6);margin-bottom:22px;line-height:1.6;">Último día del challenge, cierra a las <b style="color:#4ade80;">17:00h</b>. Hoy todo cuenta normal, pero se premia <b style="color:var(--gold);">tu esfuerzo y completar el ciclo</b>. Te llevas <b>el combo más alto que consigas</b> (no se acumulan).</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:12px;padding:18px;">
+          <div style="font-size:24px;margin-bottom:8px;">⚡</div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold-light);margin-bottom:6px;">Combo Básico</div>
+          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gold);margin-bottom:8px;">+10 pts</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.6);line-height:1.5;">20+ llamadas conectadas <b>y</b> al menos 1 demo.</div>
+        </div>
+        <div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:18px;">
+          <div style="font-size:24px;margin-bottom:8px;">💪</div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold);margin-bottom:6px;">Combo Pura Demo</div>
+          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--gold);margin-bottom:8px;">+18 pts</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.6);line-height:1.5;">30+ llamadas <b>y</b> 3+ demos. <b style="color:var(--gold-light);">Aunque no caiga venta</b> — el esfuerzo se premia.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:12px;padding:18px;">
+          <div style="font-size:24px;margin-bottom:8px;">⭐</div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#4ade80;margin-bottom:6px;">Combo Completo</div>
+          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#4ade80;margin-bottom:8px;">+25 pts</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.6);line-height:1.5;">20+ llamadas <b>+</b> demo <b>+</b> cierre (CWD) el mismo día.</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.14);border:1px solid rgba(34,197,94,0.45);border-radius:12px;padding:18px;">
+          <div style="font-size:24px;margin-bottom:8px;">🚀</div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#4ade80;margin-bottom:6px;">Pura Demo + Venta</div>
+          <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:#4ade80;margin-bottom:8px;">+30 pts</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.6);line-height:1.5;">30+ llamadas + 3+ demos + <b>1 venta</b>. El máximo esfuerzo recompensado.</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;background:linear-gradient(135deg,rgba(201,168,76,0.18),rgba(201,168,76,0.05));border:1px solid var(--gold);border-radius:12px;padding:16px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div style="font-size:24px;">🔥</div>
+        <div style="flex:1;min-width:200px;">
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--gold);">Bonus Outbound · +10 extra</div>
+          <div style="font-size:12.5px;color:rgba(255,255,255,0.65);line-height:1.5;margin-top:3px;">Se suma <b>encima</b> de tu combo si la demo y el cierre que lo completan son outbound.</div>
+        </div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--gold);background:rgba(201,168,76,0.15);padding:8px 14px;border-radius:9px;white-space:nowrap;">Máx. día: 40 pts</div>
+      </div>
+      <div style="margin-top:14px;padding:14px 16px;background:rgba(201,168,76,0.08);border-radius:10px;font-size:13px;color:rgba(255,255,255,0.7);text-align:center;">
+        💡 Los combos son <b style="color:var(--gold);">excluyentes</b>: te llevas el más alto que consigas, no la suma de todos. El bonus outbound sí va encima.
+      </div>
+    </div>
     <div class="score-section">
       <div class="score-section-label">📞 Llamadas conectadas — por día</div>
       <div class="score-rows">
@@ -303,6 +352,38 @@ footer span{color:var(--gold);}
         Cuantas más demos cierres seguidas hoy, más valen. ¡A por el sprint final!
       </div>
     </div>
+    <div id="combo-banner" style="display:none;background:linear-gradient(110deg,#1a1f35,#2f3859);border:2px solid var(--gold);border-radius:14px;padding:20px 24px;margin-bottom:20px;color:#fff;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:10px;">
+        <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--gold);">🎯 CAMPANAZO FINAL — Combo del último día</div>
+        <div id="combo-countdown" style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;padding:8px 16px;border-radius:10px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#4ade80;white-space:nowrap;">⏳ --:--:--</div>
+      </div>
+      <div style="font-size:13.5px;line-height:1.7;color:rgba(255,255,255,0.75);">
+        Hoy se premia <b style="color:var(--gold);">tu esfuerzo y cerrar el ciclo</b>. Cierre del challenge <b style="color:#4ade80;">hoy a las 17:00h</b>. Te llevas <b>el combo más alto que consigas</b> (no se suman entre sí).
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+          <div style="background:rgba(201,168,76,0.1);border:1px solid var(--border);border-radius:9px;padding:11px 13px;">
+            <div style="font-weight:800;color:var(--gold-light);font-size:13px;margin-bottom:3px;">⚡ Combo Básico · +10</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);">20+ llamadas conectadas <b>y</b> 1+ demo</div>
+          </div>
+          <div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:9px;padding:11px 13px;">
+            <div style="font-weight:800;color:var(--gold);font-size:13px;margin-bottom:3px;">💪 Pura Demo · +18</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);">30+ llamadas <b>y</b> 3+ demos (aunque no caiga venta)</div>
+          </div>
+          <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:9px;padding:11px 13px;">
+            <div style="font-weight:800;color:#4ade80;font-size:13px;margin-bottom:3px;">⭐ Combo Completo · +25</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);">20+ llamadas + demo + <b>cierre</b> el mismo día</div>
+          </div>
+          <div style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.4);border-radius:9px;padding:11px 13px;">
+            <div style="font-weight:800;color:#4ade80;font-size:13px;margin-bottom:3px;">🚀 Pura Demo + Venta · +30</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);">30+ llamadas + 3+ demos + <b>1 venta</b></div>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(201,168,76,0.18),rgba(201,168,76,0.05));border:1px solid var(--gold);border-radius:9px;padding:11px 13px;margin-top:10px;">
+          <div style="font-weight:800;color:var(--gold);font-size:13px;margin-bottom:3px;">🔥 Bonus Outbound · +10 extra</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.6);">Encima de tu combo, si la demo <b>y</b> el cierre son outbound. Máximo del día: <b style="color:var(--gold);">40 pts</b>.</div>
+        </div>
+        <div style="margin-top:10px;font-size:12.5px;color:rgba(255,255,255,0.5);">El resto de puntos (llamadas, demos, cierres) cuentan normal. El combo es un <b>extra</b>.</div>
+      </div>
+    </div>
     <div class="day-bar">
       <div style="display:flex;align-items:center;gap:16px;">
         <div class="day-badge">
@@ -360,6 +441,8 @@ const WEEK1 = ['2026-06-15','2026-06-16','2026-06-17','2026-06-18','2026-06-19',
 const WEEK2 = ['2026-06-22','2026-06-23','2026-06-24','2026-06-25','2026-06-26'];
 const ALL_DAYS = [...WEEK1, ...WEEK2];
 const RUSH_DAY = '2026-06-25'; // Final rush — boosted activity scoring
+const COMBO_DAY = '2026-06-26'; // Combo Final — complete-the-cycle bonus
+const COMBO_DEADLINE = '17:00'; // closes at 5pm
 
 // Rush scoring helpers (only apply on RUSH_DAY)
 function calcCallPtsRush(v){ return v>=50?5:v>=40?4:v>=30?3:v>=20?2:0; }
@@ -367,6 +450,35 @@ function calcCallPtsRush(v){ return v>=50?5:v>=40?4:v>=30?3:v>=20?2:0; }
 function calcDmbOutRush(n){ return n*(n+1); }
 // Inbound demos escalate 1,3,5...: total for n demos = n*n
 function calcDmbInRush(n){ return n*n; }
+
+// Combo Final (only on COMBO_DAY): rewards completing the cycle. Tiers are EXCLUSIVE
+// (you get the single highest one you qualify for), plus an outbound bonus on top.
+function calcComboPts(d){
+  const llamadas = d.llamadas||0;
+  const demos = (d.dmb_in||0) + (d.dmb_out||0);
+  const cierres = (d.cwd_in||0) + (d.cwd_out||0);
+  let pts = 0;
+  let level = ''; // for UI
+  // Highest tier first
+  if(llamadas>=30 && demos>=3 && cierres>=1){
+    pts = 30; level = 'puradema_venta';
+  } else if(llamadas>=20 && demos>=1 && cierres>=1){
+    pts = 25; level = 'completo';
+  } else if(llamadas>=30 && demos>=3){
+    pts = 18; level = 'pura_demo';
+  } else if(llamadas>=20 && demos>=1){
+    pts = 10; level = 'basico';
+  }
+  // Outbound extra: applies on top of any tier that includes a closed deal,
+  // when the demo AND the cierre are outbound.
+  let outboundBonus = 0;
+  if(pts>0 && cierres>=1 && (d.dmb_out||0)>=1 && (d.cwd_out||0)>=1){
+    outboundBonus = 10;
+    pts += 10;
+    level = level+'_outbound';
+  }
+  return { pts, level, outboundBonus };
+}
 
 function todayStr() {
   const d = new Date();
@@ -447,7 +559,7 @@ function calcCallPts(v){ return v>=40?3:v>=30?2:v>=20?1:0; }
 
 function getSdrStats(name) {
   const rows = allRows.filter(r=>r.sdr_name===name);
-  let callPts=0,leadsPts=0,dmbPts=0,cwdPts=0,bonusInd=0,bonusGrp=0;
+  let callPts=0,leadsPts=0,dmbPts=0,cwdPts=0,bonusInd=0,bonusGrp=0,comboPts=0;
   rows.forEach(r=>{
     const isRush=r.fecha===RUSH_DAY;
     callPts+=isRush?calcCallPtsRush(r.llamadas||0):calcCallPts(r.llamadas||0);
@@ -459,6 +571,8 @@ function getSdrStats(name) {
     }
     cwdPts+=(r.cwd_in||0)*3+(r.cwd_out||0)*5;
     bonusGrp+=(r.racha_bonus||0);
+    // Combo Final bonus on COMBO_DAY
+    if(r.fecha===COMBO_DAY){ comboPts+=calcComboPts(r).pts; }
   });
   [WEEK1,WEEK2].forEach(function(wdays){
     const wr=rows.filter(r=>wdays.includes(r.fecha));
@@ -469,8 +583,10 @@ function getSdrStats(name) {
     const teamDemos=allRows.filter(r=>wdays.includes(r.fecha)).reduce((s,r)=>s+(r.dmb_in||0)+(r.dmb_out||0),0);
     if(teamDemos>=60) bonusGrp+=5;
   });
+  // Combo counts within individual bonus column for the leaderboard
+  bonusInd+=comboPts;
   const total=callPts+leadsPts+dmbPts+cwdPts+bonusInd+bonusGrp;
-  return {callPts,leadsPts,dmbPts,cwdPts,bonusInd,bonusGrp,total};
+  return {callPts,leadsPts,dmbPts,cwdPts,bonusInd,bonusGrp,comboPts,total};
 }
 
 function getWeekTeamDemos(week) {
@@ -483,7 +599,9 @@ function getTodayPts(name) {
   if(currentDate===RUSH_DAY){
     return calcCallPtsRush(d.llamadas)+(d.leads>=50?2:0)+calcDmbOutRush(d.dmb_out)+calcDmbInRush(d.dmb_in)+d.cwd_in*3+d.cwd_out*5;
   }
-  return calcCallPts(d.llamadas)+(d.leads>=50?2:0)+d.dmb_in+d.dmb_out*2+d.cwd_in*3+d.cwd_out*5;
+  let base=calcCallPts(d.llamadas)+(d.leads>=50?2:0)+d.dmb_in+d.dmb_out*2+d.cwd_in*3+d.cwd_out*5;
+  if(currentDate===COMBO_DAY){ base+=calcComboPts(d).pts; }
+  return base;
 }
 
 function render() {
@@ -499,6 +617,9 @@ function renderBar() {
   // Rush banner
   const rb=document.getElementById('rush-banner');
   if(rb)rb.style.display=currentDate===RUSH_DAY?'block':'none';
+  // Combo banner
+  const cb=document.getElementById('combo-banner');
+  if(cb)cb.style.display=currentDate===COMBO_DAY?'block':'none';
 }
 
 function renderAlerts() {
@@ -532,6 +653,7 @@ function renderGroup() {
 function renderCards() {
   const g=document.getElementById('sdr-grid'); g.innerHTML='';
   const isRush=currentDate===RUSH_DAY;
+  const isCombo=currentDate===COMBO_DAY;
   SDR_NAMES.forEach(function(name){
     const d=todayInputs[name];
     const tp=getTodayPts(name);
@@ -539,7 +661,46 @@ function renderCards() {
     const cp=isRush?calcCallPtsRush(d.llamadas):calcCallPts(d.llamadas);
     const dmbOutPts=isRush?calcDmbOutRush(d.dmb_out):d.dmb_out*2;
     const dmbInPts=isRush?calcDmbInRush(d.dmb_in):d.dmb_in;
-    const c=document.createElement('div'); c.className='sdr-card'+(isRush?' rush':'');
+    // Combo status for the combo day
+    let comboHtml='';
+    if(isCombo){
+      const combo=calcComboPts(d);
+      const llamadas=d.llamadas||0;
+      const demos=(d.dmb_in||0)+(d.dmb_out||0);
+      const cierres=(d.cwd_in||0)+(d.cwd_out||0);
+      const step=(ok,label)=>`<span style="display:inline-flex;align-items:center;gap:3px;font-size:10.5px;font-weight:600;color:${ok?'#15803d':'rgba(107,114,128,0.7)'};">${ok?'✅':'⬜'} ${label}</span>`;
+      // Determine label by tier
+      let comboLabel='',comboColor='';
+      const base=combo.level.replace('_outbound','');
+      const obTag=combo.outboundBonus>0?' 🔥OUT':'';
+      if(base==='puradema_venta'){comboLabel='🚀 PURA DEMO + VENTA +'+combo.pts+obTag;comboColor='#15803d';}
+      else if(base==='completo'){comboLabel='⭐ COMBO COMPLETO +'+combo.pts+obTag;comboColor='#15803d';}
+      else if(base==='pura_demo'){comboLabel='💪 PURA DEMO +'+combo.pts;comboColor='var(--gold)';}
+      else if(base==='basico'){comboLabel='⚡ Combo básico +'+combo.pts;comboColor='var(--gold-dim)';}
+      else{comboLabel='Sin combo aún';comboColor='var(--muted)';}
+      // Progress hint toward next tier
+      let hint='';
+      if(combo.level===''){
+        if(llamadas>=20&&demos>=1)hint='';
+        else hint='Necesitas 20+ llamadas y 1 demo para empezar';
+      }else if(base==='basico'){
+        hint='Sube a 30 llam + 3 demos para Pura Demo (+18)';
+      }else if(base==='pura_demo'){
+        hint='Una venta hoy → Pura Demo + Venta (+30)';
+      }
+      comboHtml=`
+        <div style="margin-top:10px;padding:9px 11px;background:${combo.pts>0?'rgba(34,197,94,0.1)':'rgba(201,168,76,0.08)'};border:1px solid ${combo.pts>0?'rgba(34,197,94,0.3)':'var(--border)'};border-radius:9px;">
+          <div style="font-size:11px;font-weight:800;color:${comboColor};margin-bottom:5px;">${comboLabel}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:${hint?'5px':'0'};">
+            ${step(llamadas>=20,'20+ llam')}
+            ${step(llamadas>=30,'30+ llam')}
+            ${step(demos>=3,'3+ demos')}
+            ${step(cierres>=1,'1+ venta')}
+          </div>
+          ${hint?`<div style="font-size:10px;color:var(--gold-dim);font-style:italic;">↗ ${hint}</div>`:''}
+        </div>`;
+    }
+    const c=document.createElement('div'); c.className='sdr-card'+(isRush?' rush':'')+(isCombo&&calcComboPts(d).pts>0?' rush':'');
     c.innerHTML=
       '<div class="sdr-card-head">'+
         '<div class="sdr-name">'+name+'</div>'+
@@ -569,6 +730,7 @@ function renderCards() {
         '<div class="input-row"><span class="input-label">Cierres outbound</span>'+
           '<input class="input-field" type="number" min="0" value="'+d.cwd_out+'" onchange="upd(\''+name+'\',\'cwd_out\',this.value)"/>'+
           '<span class="input-pts">'+(d.cwd_out>0?'+'+(d.cwd_out*5)+'p':'--')+'</span></div>'+
+        comboHtml+
       '</div>';
     g.appendChild(c);
   });
@@ -650,6 +812,46 @@ function applyRushUI(){
   const panel=document.getElementById('rush-scoring-panel');
   if(hero)hero.style.display=isRushToday?'block':'none';
   if(panel)panel.style.display=isRushToday?'block':'none';
+  // Combo day UI
+  const isComboToday = todayStr() === COMBO_DAY;
+  const comboHero=document.getElementById('combo-hero-banner');
+  if(comboHero)comboHero.style.display=isComboToday?'block':'none';
+  const comboPanel=document.getElementById('combo-scoring-panel');
+  if(comboPanel)comboPanel.style.display=isComboToday?'block':'none';
+  if(isComboToday){ startComboCountdown(); }
+}
+
+// Countdown to 17:00 on the combo day, with color shifts as it approaches
+let comboCountdownInterval=null;
+function startComboCountdown(){
+  if(comboCountdownInterval)clearInterval(comboCountdownInterval);
+  const update=()=>{
+    const now=new Date();
+    const deadline=new Date();
+    const[dh,dm]=COMBO_DEADLINE.split(':').map(Number);
+    deadline.setHours(dh,dm,0,0);
+    const diffMs=deadline-now;
+    const els=[document.getElementById('combo-countdown'),document.getElementById('combo-hero-countdown')];
+    let text,bg,border,color;
+    if(diffMs<=0){
+      text='🏁 ¡Tiempo! Challenge cerrado';
+      bg='rgba(226,61,61,0.15)';border='1px solid rgba(226,61,61,0.5)';color='#f87171';
+      if(comboCountdownInterval)clearInterval(comboCountdownInterval);
+    }else{
+      const h=Math.floor(diffMs/3600000);
+      const m=Math.floor((diffMs%3600000)/60000);
+      const s=Math.floor((diffMs%60000)/1000);
+      const pad=n=>String(n).padStart(2,'0');
+      text=`⏳ ${pad(h)}:${pad(m)}:${pad(s)} para el cierre`;
+      // Color shifts: >2h green, 1-2h gold, <1h red pulse
+      if(diffMs>2*3600000){bg='rgba(34,197,94,0.15)';border='1px solid rgba(34,197,94,0.4)';color='#4ade80';}
+      else if(diffMs>3600000){bg='rgba(201,168,76,0.18)';border='1px solid rgba(201,168,76,0.5)';color='#F0D080';}
+      else{bg='rgba(226,61,61,0.18)';border='1px solid rgba(226,61,61,0.5)';color='#f87171';}
+    }
+    els.forEach(el=>{if(el){el.textContent=text;el.style.background=bg;el.style.border=border;el.style.color=color;}});
+  };
+  update();
+  comboCountdownInterval=setInterval(update,1000);
 }
 
 initInputs();
