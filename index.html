@@ -418,6 +418,10 @@ footer span{color:var(--gold);}
       </div>
     </div>
     <div class="sdr-grid" id="sdr-grid"></div>
+
+    <!-- Podium race (combo day only) -->
+    <div id="podium-race" style="display:none;"></div>
+
     <div class="lb-title">🏆 Ranking acumulado</div>
     <div class="leaderboard">
       <div class="lb-head">
@@ -425,6 +429,10 @@ footer span{color:var(--gold);}
       </div>
       <div id="leaderboard-rows"></div>
     </div>
+
+    <!-- MVP del campanazo (combo day only) -->
+    <div id="mvp-today" style="display:none;"></div>
+
     <div class="history-title">📋 Días cerrados</div>
     <div class="history-list" id="history-list"></div>
   </div>
@@ -606,6 +614,7 @@ function getTodayPts(name) {
 
 function render() {
   renderBar(); renderAlerts(); renderGroup(); renderCards(); renderLeaderboard(); renderHistory();
+  renderPodiumRace(); renderMvpToday();
 }
 
 function renderBar() {
@@ -752,6 +761,109 @@ function renderLeaderboard() {
       '<div class="lb-total">'+r.total+'</div>'+
     '</div>';
   }).join('');
+}
+
+// ── PODIUM RACE (combo day only): shows gaps and whether today's combo can close them ──
+function renderPodiumRace(){
+  const el=document.getElementById('podium-race');
+  if(!el)return;
+  if(todayStr()!==COMBO_DAY){el.style.display='none';return;}
+  el.style.display='block';
+
+  // Ranked by current total
+  const ranked=SDR_NAMES.map(n=>({n,...getSdrStats(n)})).sort((a,b)=>b.total-a.total);
+  const MAX_TODAY=60; // realistic strong day: ~40 combo + activity/demos/cierres on top
+  // Build "what would it take" for each SDR to reach the spot above
+  const rows=ranked.map((r,i)=>{
+    if(i===0){
+      const lead=r.total-ranked[1].total;
+      return{name:r.n,pos:i+1,isLeader:true,lead,total:r.total};
+    }
+    const above=ranked[i-1];
+    const gap=above.total-r.total;
+    const reachable=gap<=MAX_TODAY;
+    const tight=gap<=20;
+    return{name:r.n,pos:i+1,gap,aboveName:above.n,abovePos:i,reachable,tight,total:r.total};
+  });
+
+  const card=(r)=>{
+    if(r.isLeader){
+      return`<div style="background:linear-gradient(135deg,rgba(201,168,76,0.18),rgba(201,168,76,0.04));border:1px solid var(--gold);border-radius:11px;padding:14px 16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div><span style="font-size:18px;">🥇</span> <b style="font-family:'Syne',sans-serif;font-size:15px;color:var(--navy);">${r.name}</b> <span style="font-size:12px;color:var(--gold-dim);">lidera</span></div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--gold-dim);">${r.total} pts</div>
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-top:6px;">Ventaja de <b>${r.lead} pts</b> sobre el 2º. No puede relajarse: hoy todos suman.</div>
+      </div>`;
+    }
+    const medal=r.pos===2?'🥈':r.pos===3?'🥉':r.pos+'º';
+    const color=r.reachable?(r.tight?'#15803d':'var(--gold-dim)'):'var(--muted)';
+    const bg=r.reachable?(r.tight?'rgba(34,197,94,0.08)':'rgba(201,168,76,0.06)'):'rgba(107,114,128,0.05)';
+    const border=r.reachable?(r.tight?'rgba(34,197,94,0.3)':'rgba(201,168,76,0.25)'):'var(--border)';
+    let msg;
+    if(r.tight){
+      msg=`🔥 <b>¡A tiro!</b> A solo <b>${r.gap} pts</b> de ${r.aboveName} (${r.abovePos}º). Con un buen combo hoy lo adelantas.`;
+    }else if(r.reachable){
+      msg=`💪 A <b>${r.gap} pts</b> de ${r.aboveName} (${r.abovePos}º). Alcanzable hoy si rematas el ciclo completo.`;
+    }else{
+      msg=`A ${r.gap} pts del puesto de arriba. Hoy juega tu mejor día y pelea por el MVP del Campanazo 👇`;
+    }
+    return`<div style="background:${bg};border:1px solid ${border};border-radius:11px;padding:14px 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div><span style="font-size:16px;">${medal}</span> <b style="font-family:'Syne',sans-serif;font-size:15px;color:var(--navy);">${r.name}</b></div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--navy);">${r.total} pts</div>
+      </div>
+      <div style="font-size:12px;color:${color};margin-top:6px;line-height:1.5;">${msg}</div>
+    </div>`;
+  };
+
+  el.innerHTML=`
+    <div style="background:var(--white);border:1px solid #e5dfc8;border-radius:14px;padding:20px 22px;margin-bottom:24px;">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--navy);margin-bottom:4px;">⚔️ La pelea por el podio — en vivo</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Cierra hoy a las 17:00. Esto es lo que le falta a cada uno para subir un puesto. Un combo completo hoy puede valer hasta 40 pts — el podio está abierto.</div>
+      <div style="display:grid;gap:10px;">
+        ${rows.map(card).join('')}
+      </div>
+    </div>`;
+}
+
+// ── MVP DEL CAMPANAZO (combo day only): ranking of TODAY's points, everyone starts at 0 ──
+function renderMvpToday(){
+  const el=document.getElementById('mvp-today');
+  if(!el)return;
+  if(todayStr()!==COMBO_DAY){el.style.display='none';return;}
+  el.style.display='block';
+
+  // Points earned TODAY (live inputs), independent of accumulated ranking
+  const today=SDR_NAMES.map(n=>({n,pts:getTodayPts(n)})).sort((a,b)=>b.pts-a.pts);
+  const maxPts=Math.max(1,...today.map(t=>t.pts));
+  const anyPoints=today.some(t=>t.pts>0);
+
+  const rows=today.map((t,i)=>{
+    const medal=i===0&&t.pts>0?'👑':i===0?'—':(i+1)+'º';
+    const pct=Math.round(t.pts/maxPts*100);
+    const isLeader=i===0&&t.pts>0;
+    return`<div style="display:flex;align-items:center;gap:12px;padding:9px 0;${i<today.length-1?'border-bottom:1px solid #f0ece0;':''}">
+      <div style="width:28px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:${isLeader?'var(--gold-dim)':'var(--muted)'};text-align:center;">${medal}</div>
+      <div style="width:80px;font-size:13px;font-weight:600;color:var(--navy);">${t.n}</div>
+      <div style="flex:1;background:rgba(0,0,0,0.04);border-radius:6px;height:18px;overflow:hidden;">
+        <div style="height:100%;width:${t.pts>0?pct:0}%;background:${isLeader?'linear-gradient(90deg,var(--gold),var(--gold-light))':'rgba(201,168,76,0.4)'};border-radius:6px;transition:width 0.4s;"></div>
+      </div>
+      <div style="width:54px;text-align:right;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--navy);">${t.pts}</div>
+    </div>`;
+  }).join('');
+
+  el.innerHTML=`
+    <div style="background:linear-gradient(135deg,#1a1f35,#252c47);border:1px solid var(--gold);border-radius:14px;padding:20px 22px;margin:24px 0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--gold);">👑 MVP del Campanazo</div>
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.4);background:rgba(201,168,76,0.12);padding:4px 10px;border-radius:20px;">Solo puntos de HOY</div>
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:16px;line-height:1.5;">Aquí <b style="color:var(--gold-light);">todos empiezan de cero hoy</b>, da igual el ranking general. Quien más sume durante el último día se lleva el reconocimiento de MVP del Campanazo. ¡El día es de quien lo pelea!</div>
+      <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:8px 14px;">
+        ${anyPoints?rows:'<div style="text-align:center;color:rgba(255,255,255,0.4);font-size:13px;padding:14px;">Aún nadie ha sumado hoy. ¡El primero en arrancar manda! 🚀</div>'}
+      </div>
+    </div>`;
 }
 
 function renderHistory() {
